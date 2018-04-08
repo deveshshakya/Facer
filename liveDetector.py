@@ -21,14 +21,13 @@ def detector(frame, win_name):
     """Detects faces."""
 
     gray = convertToGRAY(frame)
-    print(gray.shape)
     minSize = widthHeightDividedBy(gray, 8)
     faces = face_classifier.detectMultiScale(gray, 1.1, 5, cv2.CASCADE_SCALE_IMAGE, minSize)
     print("Faces found: ", len(faces))
 
     for x, y, w, h in faces:
         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-    print(frame.shape)
+    
     cv2.imshow(win_name, frame)
 
 
@@ -39,7 +38,6 @@ face_classifier = cv2.CascadeClassifier("cascades/haarcascade_frontalface_alt.xm
 if camera.isOpened():  #  checks whether camera is opened or not.
     while True:
         ret, frame = camera.read()
-        print(frame.shape)
         detector(frame, "Detector")
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
