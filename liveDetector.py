@@ -1,18 +1,24 @@
+# import essential modules
+
 import numpy
 import cv2
 
 
 def convertToGRAY(image):
+    """Converts image to grayscale."""
+    
     return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
 
 def widthHeightDividedBy(image, value):
+    """Divides image's width & height by a value (for further use)."""
+    
     w, h = image.shape[:2]
     return int(w/value), int(h/value)
 
 
 def detector(frame, win_name):
-    """Detects faces in a live mode."""
+    """Detects faces."""
 
     gray = convertToGRAY(frame)
     print(gray.shape)
@@ -28,9 +34,9 @@ def detector(frame, win_name):
 
 camera = cv2.VideoCapture(0)
 cv2.namedWindow("Detector", cv2.WINDOW_NORMAL)
-face_classifier = cv2.CascadeClassifier("cascades/haarcascade_frontalface_alt.xml")
+face_classifier = cv2.CascadeClassifier("cascades/haarcascade_frontalface_alt.xml")  #  loads face cascades.
 
-if camera.isOpened():
+if camera.isOpened():  #  checks whether camera is opened or not.
     while True:
         ret, frame = camera.read()
         print(frame.shape)
@@ -40,5 +46,5 @@ if camera.isOpened():
 else:
     print("Camera is not opening, try again.")
 
-camera.release()
+camera.release()  # don't forget to do this.
 cv2.destroyAllWindows()
